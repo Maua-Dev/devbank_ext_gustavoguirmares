@@ -38,7 +38,7 @@ class UserData :
         if type(name) != str:
             return (False, "Name must be a string")
         if len(name) < 3:
-            return (False, "Name must be at least 3 characters long")
+            return (False, "Name must be 3 characters long") 
         return (True, "")
     
     @staticmethod
@@ -48,7 +48,7 @@ class UserData :
         if type(agency) != str:
             return (False, "Agency must be a string")
         if not re.fullmatch(r'\d{4}', agency):
-            return (False, "Agency must be at least 4 digits")
+            return (False, "Agency must be 4 digits")
         return (True, "")
         
 
