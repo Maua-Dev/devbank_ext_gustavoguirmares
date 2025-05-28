@@ -59,3 +59,22 @@ class Test_user :
     def test_current_balance_is_positive(self) :
         with pytest.raises(ParamNotValidated) :
              UserData("gustavo", "123", "12345-6", -4000.0 )
+
+    def test_to_dict(self) :
+        name = "gustavo"
+        agency = "1234"
+        account = "12345-6"
+        current_balance = 4000.0
+
+        userData = UserData(name,agency,account,current_balance )
+
+        UserData_dict = userData.to_dict()
+
+        expected_userData_dict = {
+            "name" : name,
+            "agency": agency,
+            "account" : account, 
+            "current_balance" : current_balance
+        }
+
+        assert UserData_dict == expected_userData_dict

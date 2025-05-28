@@ -1,6 +1,6 @@
 from src.app.errors.entity_errors import ParamNotValidated
 import re # to usando pq usei no pi e achei legal para busca e verificar str
-from typing import Tuple
+from typing import Dict, Tuple
 
 class UserData : 
     # padrao da doc
@@ -72,3 +72,11 @@ class UserData :
             return (False, "Current balance must be a positive number")
         return (True, "")
         
+    def to_dict(self) -> Dict:
+        return {
+    "name" : self.name,
+    "agency":  self.agency,
+    "account" : self.account, 
+    "current_balance" : self.current_balance
+
+    }
