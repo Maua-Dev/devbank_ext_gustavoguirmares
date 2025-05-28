@@ -3,7 +3,7 @@ from ..entities.user import UserData
 from ..repo.userData_repository_interface import IUserDataRepository
 
 
-class IUserDataRepositoryMock(IUserDataRepository) : 
+class UserDataRepositoryMock(IUserDataRepository) : 
     UsersData : List[UserData]
 
     def __init__(self) :

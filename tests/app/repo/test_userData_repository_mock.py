@@ -1,9 +1,9 @@
-from src.app.repo.userData_repository_mock import IUserDataRepositoryMock
+from src.app.repo.userData_repository_mock import UserDataRepositoryMock
 
 
 class Test_userDataRepositoryMock:
     def test_get_all_usersData(self) :
-        repo = IUserDataRepositoryMock()
+        repo = UserDataRepositoryMock()
 
         UsersData = repo.get_all_usersData()
 

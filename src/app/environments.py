@@ -2,9 +2,10 @@
 from enum import Enum
 import os
 
+from src.app.repo.userData_repository_interface import IUserDataRepository
+
 from .errors.environment_errors import EnvironmentNotFound
 
-from .repo.item_repository_interface import IItemRepository
 
 
 class STAGE(Enum):
@@ -35,10 +36,10 @@ class Environments:
         self.stage = STAGE[os.environ.get("STAGE")]
 
     @staticmethod
-    def get_item_repo() -> IItemRepository:
+    def get_UserData_repo() -> IUserDataRepository:
         if Environments.get_envs().stage == STAGE.TEST:
-            from .repo.item_repository_mock import ItemRepositoryMock
-            return ItemRepositoryMock
+            from .repo.userData_repository_mock import UserDataRepositoryMock 
+            return UserDataRepositoryMock
         # use "elif" conditional to add other stages
         else:
             raise EnvironmentNotFound("STAGE")
