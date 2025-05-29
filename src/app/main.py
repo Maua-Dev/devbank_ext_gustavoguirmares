@@ -16,3 +16,6 @@ def get_all_usersData():
     return {
         "UsersData": [user.to_dict() for user in users_data]
     }
+
+
+handler = Mangum(app, lifespan="off")
