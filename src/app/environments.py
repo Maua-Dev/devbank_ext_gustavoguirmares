@@ -44,6 +44,15 @@ class Environments:
             return UserDataRepositoryMock
         # use "elif" conditional to add other stages
         else:
+            raise EnvironmentNotFound("STAGE")\
+            
+    @staticmethod
+    def get_userData_by_name() -> IUserDataRepository:
+        if Environments.get_envs().stage == STAGE.TEST:
+            from .repo.userData_repository_mock import UserDataRepositoryMock 
+            return UserDataRepositoryMock
+        # use "elif" conditional to add other stages
+        else:
             raise EnvironmentNotFound("STAGE")
         
     @staticmethod

@@ -50,10 +50,11 @@ def deposit_transaction(transaction: Transaction):
 
 @app.get("/history")
 def get_all_transactions():
-    transactions = Test_transaction.get_all_transactions()
+    transactions = repo_transactions.get_all_transactions()
     return {
         "transactions": [transaction.to_dict() for transaction in transactions]
     }
+
 
 
 
