@@ -21,7 +21,7 @@ class IUserDataRepository(ABC):
         pass
 
     @abstractmethod
-    def get_userData_by_agency_or_account(self, agency: str, account: str) -> Optional[UserData]:
+    def get_userData_by_agency_and_account(self, agency: str, account: str) -> Optional[UserData]:
         """
         Return a user by agency and account
 
