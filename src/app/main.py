@@ -7,7 +7,7 @@ app = FastAPI()
 
 repo_user = Environments.get_UserData_repo()()
 
-@app.get("/UsersData/get_all_usersData")
+@app.get("/")
 def get_all_usersData():
     UsersData = repo_user.get_all_usersData()
     return {
