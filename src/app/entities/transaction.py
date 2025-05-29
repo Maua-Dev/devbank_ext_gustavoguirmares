@@ -1,6 +1,6 @@
 from typing import Dict, Tuple
-from src.app.enums.transaction_type_enum import transactionTypeEnum
-from src.app.errors.entity_errors import ParamNotValidated
+from ..enums.transaction_type_enum import transactionTypeEnum
+from ..errors.entity_errors import ParamNotValidated
 
 
 class Transaction :

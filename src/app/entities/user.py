@@ -1,4 +1,4 @@
-from src.app.errors.entity_errors import ParamNotValidated
+from ..errors.entity_errors import ParamNotValidated
 import re # to usando pq usei no pi e achei legal para busca e verificar str
 from typing import Dict, Tuple
 
