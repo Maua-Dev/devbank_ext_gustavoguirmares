@@ -10,6 +10,7 @@ from .environments import Environments
 
 app = FastAPI()
 
+
 repo_user = Environments.get_UserData_repo()()
 repo_transactions = Environments.get_transactions_repo()()
 
