@@ -4,6 +4,7 @@ import pytest
 from src.app.main import get_all_usersData, get_userData
 
 
+
 class Test_Main:
     def test_get_all_UsersData(self) :
         response = get_all_usersData()
