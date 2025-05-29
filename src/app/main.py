@@ -16,11 +16,10 @@ repo_transactions = Environments.get_transactions_repo()()
 
 @app.get("/")
 def get_userData(repo=repo_user):
-    UserData = repo.get_userData()
+    UsersData = repo.get_userData()
     return {
-        "UsersData": UserData
+        "UsersData": [user.to_dict() for user in UsersData]
     }
-
 def timestamp_time():
     return int(time.time() * 1000)
 
