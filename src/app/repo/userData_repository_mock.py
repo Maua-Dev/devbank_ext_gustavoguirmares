@@ -15,8 +15,9 @@ class UserDataRepositoryMock(IUserDataRepository) :
     def get_usersData(self):
         return self.UsersData
     
-    def get_userData(self) :
-        return self.UsersData[0] 
+    def get_userData(self):
+        return [self.UsersData[0]]
+
     
     def get_userData_by_name(self, name: str) -> Optional[UserData]:
         for user in self.UsersData:
