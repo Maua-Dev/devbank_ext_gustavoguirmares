@@ -14,8 +14,8 @@ repo_user = Environments.get_UserData_repo()()
 repo_transactions = Environments.get_transactions_repo()()
 
 @app.get("/")
-def get_userData():
-    UsersData = repo_user.get_userData()
+def get_userData(repo=repo_user):
+    UsersData = repo.get_userData()
     return {
         "UsersData": [user.to_dict() for user in UsersData]
     }
