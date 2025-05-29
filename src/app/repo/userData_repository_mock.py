@@ -12,8 +12,8 @@ class UserDataRepositoryMock(IUserDataRepository) :
         UserData('Vitor', '4321', '65432-1', 0.0), # sobra nada pro soller 
         UserData('Josefina', '2134', '01234-5', 12000.0)
         ] 
-    def get_all_usersData(self) -> List[UserData] :
-        return  self.UsersData
+    def get_userData(self) -> List[UserData] :
+        return  self.UsersData[0]
     
     def get_userData_by_name(self, name: str) -> Optional[UserData]:
         for user in self.UsersData:

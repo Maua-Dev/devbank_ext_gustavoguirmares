@@ -1,38 +1,61 @@
 from fastapi import FastAPI, HTTPException
 from mangum import Mangum
+import time
+from src.app.entities.transaction import Transaction
+from src.app.enums.transaction_type_enum import transactionTypeEnum
+from src.app.errors.entity_errors import ParamNotValidated
+from tests.app.entities.test_transaction import Test_transaction
 
 from .environments import Environments
 
 app = FastAPI()
 
 repo_user = Environments.get_UserData_repo()()
+repo_transactions = Environments.get_all_transactions()()
 
 @app.get("/")
-def get_all_usersData():
-    UsersData = repo_user.get_all_usersData()
+def get_userData():
+    UsersData = repo_user.get_userData()
     return {
         "UsersData": [user.to_dict() for user in UsersData]
     }
 
-@app.get("/UsersData/get_userData_by_name")
-def get_userData_by_name(name: str):
-    userData = repo_user.get_userData_by_name(name)
-    if userData is None:
-        raise HTTPException(status_code=404, detail="User not found")
+def timestamp_time():
+    return int(time.time() * 1000)
+
+@app.post("/deposit", status_code=201)
+def deposit_transaction(transaction: Transaction):
+    value = transaction.value
+    user = repo_user.get_userData_by_name("Gustavo")
+    
+    if float(value) > user.current_balance * 2:
+        raise HTTPException(status_code=403, detail="Depósito suspeito")
+
+    user.current_balance += float(value)
+    
+    transaction = Transaction(
+        transaction_type=transactionTypeEnum.DEPOSIT,
+        value=float(value),
+        current_balance=user.current_balance,
+        timestamp= timestamp_time()
+    )
+
+   
+    transaction_register = repo_transactions.deposit_transaction(transaction)
 
     return {
-         "UsersData": [user.to_dict() for user in userData]
+        "current_balance": user.current_balance,
+        "timestamp": timestamp_time()
     }
 
-@app.get("/UsersData/get_userData_by_agency_or_account")
-def get_userData_by_agency_and_account(agency: str, account: str):
-    userData = repo_user.get_userData_by_agency_and_account(agency, account)
-    if userData is None:
-        raise HTTPException(status_code=404, detail="User not found")
-
+@app.get("/history")
+def get_all_transactions():
+    transactions = Test_transaction.get_all_transactions()
     return {
-       "UsersData": [user.to_dict() for user in userData] 
+        "transactions": [transaction.to_dict() for transaction in transactions]
     }
+
+
 
 handler = Mangum(app, lifespan="off")
 
