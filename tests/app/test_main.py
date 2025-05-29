@@ -19,15 +19,15 @@ class Test_Main:
         # assert response == expected_response
         
     def test_get_userData(self):
-        response = get_userData
-        expected_response ={
-            'UsersData': [
-        {'name': 'Gustavo', 'agency': '1234', 'account': '12345-6', 'current_balance': 4000.0} ]
-            
-        } 
+      response = get_userData()
+      expected_response = {
+        'UsersData': [
+            {'name': 'Gustavo', 'agency': '1234', 'account': '12345-6', 'current_balance': 4000.0}
+        ]
+    }
+      assert type(response) == dict
+      assert response == expected_response
 
-        assert type(response) == dict
-        assert response == expected_response
 
 
 
