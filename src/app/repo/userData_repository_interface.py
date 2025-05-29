@@ -5,9 +5,18 @@ from ..entities.user import UserData
 class IUserDataRepository(ABC):
 
     @abstractmethod
-    def get_userData(self) -> List[UserData]:
+
+    def get_usersData(self) -> List[UserData]:
         """
         Return all users data in the database
+
+        """
+        pass
+    @abstractmethod
+
+    def get_userData(self) -> List[UserData]:
+        """
+        Return a user data in the database
 
         """
         pass
