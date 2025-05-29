@@ -21,11 +21,11 @@ class UserDataRepositoryMock(IUserDataRepository) :
                 return user
         return None
 
-    def get_userData_by_agency_or_account(self, agency: str, account: str) -> Optional[UserData]:
+    def get_userData_by_agency_and_account(self, agency: str, account: str) -> Optional[UserData]:
         for user in self.UsersData:
-            if user.agency == agency or user.account == account:
+            if user.agency == agency and user.account == account: #mudei para and pq lembrei q n é uma agencia para cada usuáriokkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
                 return user
-        return None
+        return None 
 
     def get_current_balance(self, agency: str, account: str) -> Optional[float]:
         for user in self.UsersData:
