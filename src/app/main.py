@@ -4,7 +4,7 @@ import time
 from .entities.transaction import Transaction
 from .enums.transaction_type_enum import transactionTypeEnum
 from .errors.entity_errors import ParamNotValidated
-from tests.app.entities.test_transaction import Test_transaction
+
 
 from .environments import Environments
 
