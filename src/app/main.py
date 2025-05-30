@@ -17,10 +17,13 @@ repo_transactions = Environments.get_transactions_repo()()
 
 @app.get("/")
 def get_userData(repo=repo_user):
-    UsersData = repo.get_userData()
-    return {
-         user.to_dict() for user in UsersData
-    }
+    UsersData = repo.get_userData() 
+    
+    if UsersData:
+        return UsersData.to_dict() 
+    else:
+        raise HTTPException(status_code=404, detail="No user data found")
+
 def timestamp_time():
     return int(time.time() * 1000)
 
