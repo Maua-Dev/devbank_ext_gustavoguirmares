@@ -10,6 +10,7 @@ from .environments import Environments
 
 app = FastAPI()
 
+
 repo_user = Environments.get_UserData_repo()()
 repo_transactions = Environments.get_transactions_repo()()
 
@@ -19,7 +20,6 @@ def get_userData(repo=repo_user):
     return {
         "UsersData": [user.to_dict() for user in UsersData]
     }
-
 def timestamp_time():
     return int(time.time() * 1000)
 
