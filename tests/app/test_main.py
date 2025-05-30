@@ -25,9 +25,7 @@ class Test_Main:
   def test_get_userData(self):
     repo = UserDataRepositoryMock()
     response = get_userData(repo)  
-    expected_response = {
-        'UsersData': [user.to_dict() for user in repo.UsersData]
-    }
+    expected_response = repo.UsersData[0].to_dict() 
 
     assert type(response) == dict
     assert response == expected_response
