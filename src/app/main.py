@@ -28,8 +28,7 @@ def timestamp_time():
     return int(time.time() * 1000)
 
 @app.post("/deposit", status_code=201)
-def deposit_transaction(request: dict):
-    value = request.get("value")
+def deposit_transaction(value : float):
     if value is None :
         raise HTTPException(status_code=400, detail="value is required")
 
