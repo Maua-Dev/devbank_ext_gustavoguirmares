@@ -20,7 +20,7 @@ def get_userData(repo=repo_user):
     UsersData = repo.get_userData() 
     
     if UsersData:
-        return UsersData.to_dict() 
+        return UsersData[0].to_dict() 
     else:
         raise HTTPException(status_code=404, detail="No user data found")
 
