@@ -2,7 +2,7 @@ from fastapi import FastAPI, HTTPException
 from mangum import Mangum
 import time
 
-from src.app.entities.transaction import Transaction
+from .entities.transaction import Transaction
 from .enums.transaction_type_enum import transactionTypeEnum
 from .errors.entity_errors import ParamNotValidated
 

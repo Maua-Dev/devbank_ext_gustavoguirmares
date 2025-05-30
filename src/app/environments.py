@@ -2,7 +2,7 @@
 from enum import Enum
 import os
 
-from src.app.repo.transaction_repository_interface import ITransactionRepository
+from .repo.transaction_repository_interface import ITransactionRepository
 
 from .repo.userData_repository_interface import IUserDataRepository
 
