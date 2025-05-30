@@ -34,14 +34,14 @@ def deposit_transaction(value : float):
 
     user = repo_user.get_userData_by_name("Gustavo")
     
-    if float(value) > user.current_balance * 2:
+    if value > user.current_balance * 2:
         raise HTTPException(status_code=403, detail="Depósito suspeito")
 
     user.current_balance += float(value)
     
     transaction = Transaction(
         transaction_type=transactionTypeEnum.DEPOSIT,
-        value=float(value),
+        value=value,
         current_balance=user.current_balance,
         timestamp= timestamp_time()
     )
@@ -54,6 +54,33 @@ def deposit_transaction(value : float):
         "timestamp": timestamp_time()
     }
 
+
+@app.post("/withdraw", status_code=201) 
+def withdraw_transaction(value: float):
+    if value <= 0:
+        raise HTTPException(status_code=400, detail="Value must be greater than 0 for withdrawal")
+
+    user = repo_user.get_userData_by_name("Gustavo")
+    if value > user.current_balance:
+        raise HTTPException(status_code=403, detail="Insufficient balance")
+    
+    user.current_balance -= value 
+    
+    transaction = Transaction(
+        transaction_type=transactionTypeEnum.WITHDRAW, 
+        value=value,
+        current_balance=user.current_balance,
+        timestamp=timestamp_time()
+    )
+
+    transaction_register = repo_transactions.withdraw_transaction(transaction) 
+
+    return {
+        "current_balance": user.current_balance,
+        "timestamp": timestamp_time()
+    }
+
+
 @app.get("/history")
 def get_all_transactions():
     transactions = repo_transactions.get_all_transactions()
@@ -62,8 +89,4 @@ def get_all_transactions():
     }
 
 
-
-
 handler = Mangum(app, lifespan="off")
-
-
