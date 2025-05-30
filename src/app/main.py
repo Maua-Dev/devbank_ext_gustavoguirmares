@@ -25,7 +25,7 @@ def get_userData(repo=repo_user):
         raise HTTPException(status_code=404, detail="No user data found")
 
 def timestamp_time():
-    return int(time.time() * 1000)
+    return time.time() * 1000
 
 @app.post("/deposit", status_code=201)
 def deposit_transaction(value : float):
@@ -43,7 +43,7 @@ def deposit_transaction(value : float):
         transaction_type=transactionTypeEnum.DEPOSIT,
         value=value,
         current_balance=user.current_balance,
-        timestamp= timestamp_time()
+        timestamp = timestamp_time()
     )
 
    
@@ -70,7 +70,8 @@ def withdraw_transaction(value: float):
         transaction_type=transactionTypeEnum.WITHDRAW, 
         value=value,
         current_balance=user.current_balance,
-        timestamp=timestamp_time()
+        timestamp = timestamp_time()
+
     )
 
     transaction_register = repo_transactions.withdraw_transaction(transaction) 
