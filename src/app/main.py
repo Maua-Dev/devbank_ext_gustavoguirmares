@@ -28,11 +28,22 @@ def timestamp_time():
     return time.time() * 1000
 
 @app.post("/deposit", status_code=201)
-def deposit_transaction(value : float):
-    if value is None :
-        raise HTTPException(status_code=400, detail="value is required")
+def deposit_transaction(notas: dict):
+    if not notas:
+        raise HTTPException(status_code=400, detail="As denominações são obrigatórias")
 
-    user = repo_user.get_userData_by_name("Gustavo")
+    
+    total_value = 0.0
+    for note_str, quantity in notas.items():
+        try:
+            note_value = float(note_str)
+            total_value += note_value * quantity
+        except ValueError:
+            raise HTTPException(status_code=400, detail=f" nota inválida: {note_str}")
+    
+    value = total_value 
+
+    user = repo_user.get_userData_by_name("Gustavo") 
     
     if value > user.current_balance * 2:
         raise HTTPException(status_code=403, detail="Depósito suspeito")
@@ -56,13 +67,26 @@ def deposit_transaction(value : float):
 
 
 @app.post("/withdraw", status_code=201) 
-def withdraw_transaction(value: float):
+def withdraw_transaction(notas: dict):
+    if not notas:
+        raise HTTPException(status_code=400, detail="As denominações são obrigatórias")
+
+    total_value = 0.0
+    for note_str, quantity in notas.items():
+        try:
+            note_value = float(note_str)
+            total_value += note_value * quantity
+        except ValueError:
+            raise HTTPException(status_code=400, detail=f"Denominação de nota inválida: {note_str}")
+
+    value = total_value 
+
     if value <= 0:
-        raise HTTPException(status_code=400, detail="Value must be greater than 0 for withdrawal")
+        raise HTTPException(status_code=400, detail="O valor deve ser maior que 0 para saque")
 
     user = repo_user.get_userData_by_name("Gustavo")
     if value > user.current_balance:
-        raise HTTPException(status_code=403, detail="Insufficient balance")
+        raise HTTPException(status_code=403, detail="Saldo insuficiente")
     
     user.current_balance -= value 
     
@@ -86,7 +110,7 @@ def withdraw_transaction(value: float):
 def get_all_transactions():
     transactions = repo_transactions.get_all_transactions()
     return {
-        "transactions": [transaction.to_dict() for transaction in transactions]
+        "all_transactions": [transaction.to_dict() for transaction in transactions] # formato da doc de retornar ate com o all_transactions 
     }
 
 
